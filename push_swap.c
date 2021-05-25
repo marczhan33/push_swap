@@ -6,7 +6,7 @@
 /*   By: mzhan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:30:26 by mzhan             #+#    #+#             */
-/*   Updated: 2021/05/25 11:53:23 by mzhan            ###   ########.fr       */
+/*   Updated: 2021/05/25 15:05:32 by mzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,37 @@ int nb_int(char **str)
 	return (i);
 }
 
+int check_nb(char **str, int argc)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (i < argc - 1)
+	{
+		if ((str[i][j] >= '0' && str[i][j] <= '9') || (str[i][j] == '-'))
+		{
+			if (str[i][j] == '-')
+				j++;
+			while (str[i][j] >= '0' && str[i][j] <= '9')
+				j++;
+			if (str[i][j] != '\0')
+			{
+				write(1, "ERROR", 5);
+				return (0);
+			}
+			j = 0;
+		}
+		else
+		{
+			write(1, "ERROR", 5);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 int main (int argc, char **argv)
 {
 	char **str;
@@ -46,16 +77,8 @@ int main (int argc, char **argv)
 			i++;
 		}
 	}
-	//check
-	while (str[i] >= 48 || str[i] <= 57)
-	{
-		if (str[i][0] == '-' && str[i][1] == '\0')
-		{
-			write (1, "ERROR", 5);
-			return (0)
-		}
-		i++;
-
+	if (!check_nb(str, argc))
+		return (0);
 	i = 0;
 	len = nb_int(str);	
 	tab = (int *)malloc(sizeof(*tab) * (len + 1));
