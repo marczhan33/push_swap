@@ -6,7 +6,7 @@
 /*   By: mzhan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:30:26 by mzhan             #+#    #+#             */
-/*   Updated: 2021/05/24 15:27:47 by mzhan            ###   ########.fr       */
+/*   Updated: 2021/05/25 11:53:23 by mzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ int main (int argc, char **argv)
 	if (argc == 1)
 		return (0);
 	if (argc == 2)
-	{
 		str = ft_split(argv[1], ' ');
-	}
 	else 
 	{
 		str = (char **)malloc(sizeof(*str) * (argc + 1));
@@ -48,6 +46,16 @@ int main (int argc, char **argv)
 			i++;
 		}
 	}
+	//check
+	while (str[i] >= 48 || str[i] <= 57)
+	{
+		if (str[i][0] == '-' && str[i][1] == '\0')
+		{
+			write (1, "ERROR", 5);
+			return (0)
+		}
+		i++;
+
 	i = 0;
 	len = nb_int(str);	
 	tab = (int *)malloc(sizeof(*tab) * (len + 1));
@@ -62,3 +70,9 @@ int main (int argc, char **argv)
 	tab[i] = '\0';
 	return (0);
 }
+
+
+//[i][i][i][i]
+//[j][j][j][j]
+//[j][j][j][j]
+//[j][j][j][j]
