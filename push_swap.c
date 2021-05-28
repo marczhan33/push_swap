@@ -6,7 +6,7 @@
 /*   By: mzhan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:30:26 by mzhan             #+#    #+#             */
-/*   Updated: 2021/05/26 15:18:35 by mzhan            ###   ########.fr       */
+/*   Updated: 2021/05/28 15:30:45 by mzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,32 @@ int check_nb(char **str, int argc)
 	}
 	return (1);
 }
+
+int check_duplicate(int * tab, int len)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+
+	while (i < len)
+	{
+		while (j < len)
+		{	
+			if (tab[i] == tab[j])
+			{
+				write(1,"ERROR", 5);
+				return (0);
+			}
+			j++;
+		}
+		i++;
+		j = i;
+	}
+	return (1);
+}
+
 int main (int argc, char **argv)
 {
 	char **str;
@@ -77,7 +103,7 @@ int main (int argc, char **argv)
 	{
 		str = (char **)malloc(sizeof(*str) * (argc + 1));
 		if (!str)
-			return (0);
+			return (1);
 		while ((int)i < argc )
 		{
 			str[i] = argv[i + 1];
@@ -85,12 +111,12 @@ int main (int argc, char **argv)
 		}
 	}
 	if (!check_nb(str, argc))
-		return (0);
+		return (1);
 	i = 0;
 	len = nb_int(str);	
 	tab = (int *)malloc(sizeof(*tab) * (len + 1));
 	if (!tab)
-		return (-1);
+		return (1);
 	while (i < len)
 	{
 		tab[i] = ft_atoi(str[i]);
@@ -98,11 +124,11 @@ int main (int argc, char **argv)
 		i++;
 	}
 	tab[i] = '\0';
+	if (!check_duplicate(tab, len))
+		return (1);
 	return (0);
 }
-
-
-//[i][i][i][i]
-//[j][j][j][j]
-//[j][j][j][j]
-//[j][j][j][j]
+			//[i][i][i][i]
+			//[j][j][j][j]
+			//[j][j][j][j]
+			//[j][j][j][j]
